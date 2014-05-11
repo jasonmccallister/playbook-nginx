@@ -31,7 +31,7 @@
     shell: chmod guo+x ngxen ngxdis ngxvhost
 
   - name: Move helpers
-    shell: mv ngxen ngxdis vhost /usr/local/bin
+    shell: mv ngxen ngxdis ngxvhost /usr/local/bin
 
   - name: Disable default nginx host
     shell: ngxdis default
