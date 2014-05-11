@@ -38,14 +38,12 @@
 
   - name: Set cgi.fix_pathinfo
     raw: sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php5/fpm/php.ini
-	notify:
-	  - restart fpm
-	  - restart nginx
+    notify: restart fpm
+
+  - name: Restart Nginx
+    service: name=nginx state=restart
 
   handlers:
 
   - name: restart fpm
     service: name=php5-fpm state=restart
-
-  - name: restart nginx
-    service: name=nginx state=restart
