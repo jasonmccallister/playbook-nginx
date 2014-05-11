@@ -25,7 +25,7 @@
     shell: curl -L https://gist.githubusercontent.com/fideloper/8261546/raw/ngxdis > ngxdis
 
   - name: Copy helper ngxvhost
-    shell:
+    shell: curl -L https://gist.githubusercontent.com/fideloper/9063376/raw/ngxhost.sh > ngxvhost
 
   - name: Set permissions on helpers
     shell: chmod guo+x ngxen ngxdis ngxvhost
