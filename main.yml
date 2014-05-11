@@ -38,9 +38,9 @@
     notify: restart fpm
 
   - name: Restart Nginx
-    service: name=nginx state=restart
+    service: name=nginx state=restarted
 
   handlers:
 
   - name: restart fpm
-    service: name=php5-fpm state=restart
+    service: name=php5-fpm state=restarted
