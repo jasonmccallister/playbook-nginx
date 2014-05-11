@@ -1,0 +1,51 @@
+---
+- hosts: "{{ my_hosts }}"
+  vars:
+    var_name:
+  remote_user: root
+  sudo: yes
+
+  tasks:
+
+  - name: Add nginx ppa
+    apt_repository: repo='ppa:nginx/stable' state=present
+
+  - name: Update apt-key
+    shell: apt-key update
+
+  - name: Install nginx
+    apt: name={{ item }} state=present
+    with_items:
+      - nginx
+
+  - name: Copy helper ngxen
+    shell: curl -L https://gist.githubusercontent.com/fideloper/8261546/raw/ngxen > ngxen
+
+  - name: Copy helper ngxdis
+    shell: curl -L https://gist.githubusercontent.com/fideloper/8261546/raw/ngxdis > ngxdis
+
+  - name: Copy helper ngxvhost
+    shell:
+
+  - name: Set permissions on helpers
+    shell: chmod guo+x ngxen ngxdis ngxvhost
+
+  - name: Move helpers
+    shell: mv ngxen ngxdis vhost /usr/local/bin
+
+  - name: Disable default nginx host
+    shell: ngxdis default
+
+  - name: Set cgi.fix_pathinfo
+    shell: sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php5/fpm/php.ini
+	notify:
+	  - restart fpm
+	  - restart nginx
+
+  handlers:
+
+  - name: restart fpm
+    service: name=php5-fpm state=restart
+
+  - name: restart nginx
+    service: name=nginx state=restart
