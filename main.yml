@@ -33,9 +33,6 @@
   - name: Move helpers
     shell: mv ngxen ngxdis ngxvhost /usr/local/bin
 
-  - name: Disable default nginx host
-    shell: ngxdis default
-
   - name: Set cgi.fix_pathinfo
     raw: sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php5/fpm/php.ini
     notify: restart fpm
